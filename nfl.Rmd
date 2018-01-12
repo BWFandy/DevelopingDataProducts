@@ -1,0 +1,26 @@
+---
+title: "Developing Data Products - Week 2 Assignment"
+date: "January 12, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+```
+
+```{r nfl, echo = FALSE}
+library(leaflet)
+
+setwd("~/CourseraDataScienceSpecialty/9_Developing Data Products/Week 2 Assignment")
+
+nfl <- read.csv("nfl stadiums.csv")
+
+nfl %>% 
+        leaflet() %>% 
+        addProviderTiles(providers$CartoDB.Positron) %>% 
+        addCircleMarkers(radius = 8, weight = 1, color = c("Red", "Blue"), label = as.character(nfl$ï..Team)) %>% 
+        addLegend(title = "NFL Stadium Locations by Conference", labels = levels(nfl$Conference), 
+                  colors = c("Red", "Blue")) %>% 
+        addLabelOnlyMarkers(label = Sys.Date())
+```
+
